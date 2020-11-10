@@ -113,7 +113,7 @@ int main(){
   double frekans[] = {1,3,6,4,2};
   int size = sizeof(array_numbers) / sizeof(array_numbers[0]);
   
-  cout << "This is My New change for the code" << "\n";
+  
   
     // cout << sizeof(balance) / sizeof(balance[0]) << endl;
 
