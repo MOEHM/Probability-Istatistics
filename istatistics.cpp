@@ -78,7 +78,6 @@ void standart_sapma(double array[], int size){
 	stpma = sum2 / size;
 	printf("Standard Sapma: %.4f\n\n", sqrt(stpma));
 	
-
 }
 
 void frekansa_standart_sapma(double array[], double frekans[], int size){
@@ -101,9 +100,10 @@ void frekansa_standart_sapma(double array[], double frekans[], int size){
 		cout << setw(1) << array[i] - ortalama <<  "\t" << SQ(array[i] - ortalama) << setw(12) << SQ(array[i] - ortalama)*frekans[i] << "\n";
 		sum2 += SQ(array[i] - ortalama)*frekans[i];
 	}
-	printf("-----------------------%.4f\n ",sum2);
+	printf("---------------------------\n");
+	printf("                    %.4f\n", sum2);
 	sapma = sum2 / sumF;
-	printf("standart sapma: %.4f\n ", sqrt(sapma));
+	printf("Standart Sapma: %.4f\n ", sqrt(sapma));
 	
 }
 
