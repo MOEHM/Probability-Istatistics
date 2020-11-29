@@ -31,7 +31,7 @@ double cumulativ_frekans;
   }
   cout << "\n" << "Cumulitive Toplama:" << c_sum << "\n";
 
-}
+} 
 
 void medyan_hesaplama(){
 
@@ -80,9 +80,9 @@ void standart_sapma(double array[], int size){
 	
 }
 
-void frekansa_standart_sapma(double array[], double frekans[], int size){
+void frekans_standart_sapma(double array[], double frekans[], int size){
 	double sum1 = 0;
-	int sumF = 0;
+	double sumF = 0;
 	double sum2 = 0;
 	double ortalama;
 	double sapma;
@@ -107,12 +107,34 @@ void frekansa_standart_sapma(double array[], double frekans[], int size){
 	
 }
 
+void olasilk_frekans_standart_sapma(double x[], double p[], int size){
+	         double sum_x_p = 0;
+	         double sum_p = 0;
+	         double sum_sqx_p = 0;
+	         double varyans = 0;
+	         
+	         cout << "\nOlasılık için Standart Sapma Hesaplama: " << "\n";
+	         cout << setw(2) << "X" << setw(8) << "P(x)" << setw(10) << "\t x * p(x)" << setw(18) << "SQ(x) * p(x) " << "\n";
+	         
+	         for(int i =0; i< size; i++){
+				 cout << setw(2) << x[i] << setw(8) << p[i]  << setw(10) << x[i] * p[i] << setw(15) << SQ(x[i]) * p[i] << "\n" ;
+				 sum_x_p += x[i] * p[i];
+				 sum_sqx_p += SQ(x[i]) * p[i];
+				 sum_p += p[i];
+				 
+				 }
+				 cout << "\n---------------------------------------------------------------" << "\n" ;
+				 cout << setw(8) << sum_p << setw(12) << sum_x_p << setw(15) << sum_sqx_p << "\n" ;
+				 varyans = sqrt(sum_sqx_p - SQ(sum_x_p));
+				 printf("Varyans = %.4f\n", varyans);
+	
+	}
+
 
 int main(){
-  double array_numbers[] ={2,4,5,8,9};
-  double frekans[] = {1,3,6,4,2};
+  double array_numbers[] ={0,1,2,3,4,5};
+  double frekans[] = {0.02,0.20,0.30,0.30,0.10,0.08};
   int size = sizeof(array_numbers) / sizeof(array_numbers[0]);
-  
   
   
     // cout << sizeof(balance) / sizeof(balance[0]) << endl;
@@ -120,17 +142,19 @@ int main(){
   // Göreli Sıklık Hesaplama ve kümülitif 
   frekans_hesaplama(array_numbers, size);
   
-  
 
   // Medyan Hesaplama
  // medyan_hesaplama();
  
  // Standart sapma Hesaplama 
+ // Varyans
   standart_sapma(array_numbers,size);
   
   // frekans ile Standart Sapma Hesaplamasi
-  frekansa_standart_sapma(array_numbers,frekans,size);
-
+  frekans_standart_sapma(array_numbers,frekans,size);
+  
+  // Olasılık için Varyans Hesaplama
+  olasilk_frekans_standart_sapma(array_numbers,frekans, size);
 
   return 0;
 }
