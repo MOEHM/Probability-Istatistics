@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 #define SQ(a) (a)*(a) //  Square Operation
+#define FAC(i,n,b) for (i = n; i>=b; i--)  // Factorial Calculation LOOP
 using namespace std;
 
 
@@ -129,7 +130,34 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 				 printf("Varyans = %.4f\n", varyans);
 	
 	}
-
+	
+	void binom(double n, double x, double p, double q){
+		// n= deney sayısı, x= başarılı sonuç sayısı, p= başarılı sonuç OLASILIĞI, q= başarısız sonuç OLASILIĞI 1-p 
+	    int i;
+	    double s1 = 1;   // n!
+	    double s2 = 1;  // x!
+	    double s3 = 1; // (n-x)!
+	    double a;          // (n-x)! * x!
+	    double combination; //(n,x)
+	    double binom_daglimi;
+	    
+		FAC(i,n,1){
+			s1 *= i;
+			}
+		FAC(i,x,1){
+			s2 *= i;
+			}
+		FAC(i,n-x,1){
+			s3 *= i;
+			}
+		a = s2 * s3;
+		combination = s1 / a;
+		cout << "Kombinasyon: " << combination << "\n";
+		binom_daglimi = combination * pow(p,x)  *  pow(q,n-x); 
+		cout << binom_daglimi << "\n\n";
+		 
+		} 
+	
 
 int main(){
   double array_numbers[] ={0,1,2,3,4,5};
@@ -142,7 +170,6 @@ int main(){
   // Göreli Sıklık Hesaplama ve kümülitif 
   frekans_hesaplama(array_numbers, size);
   
-
   // Medyan Hesaplama
  // medyan_hesaplama();
  
@@ -155,6 +182,12 @@ int main(){
   
   // Olasılık için Varyans Hesaplama
   olasilk_frekans_standart_sapma(array_numbers,frekans, size);
+  
+  // Binom Dağılımı 
+  // n= deney sayısı, x= başarılı sonuç sayısı, p= başarılı sonuç OLASILIĞI, q= başarısız sonuç OLASILIĞI 1-p 
+  // formul: (n,x) * p^x * q^n-x
+  
+  binom(7,3,0.15,1-0.15);  // binom(n,x,p,q) 
 
   return 0;
 }
