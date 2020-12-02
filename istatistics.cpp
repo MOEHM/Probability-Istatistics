@@ -116,17 +116,17 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 	          // 2. " x^2 . p(x) " toplamı 
 	          // 3. standart sapma hesaplama formulu " sqrt( x^2 . p(x) - (m^2) "
 	          
-	         double m = 0;                    // ortalama beklene değer 1.adım
+	         double m = 0;                    // ortalama (beklenen değer) 1.adım
 	         double sum_p = 0;           // olasılık p(x) değerleri toplama    
-	         double sum_sqx_p = 0;  // x^2 . p(x)                         2.adım
-	         double varyans = 0;        // standart sapma               3. adım
+	         double sum_sqx_p = 0;  // x^2 . p(x)                            2.adım
+	         double varyans = 0;        // standart sapma                  3. adım
 	         
 	         cout << "\nOlasılık için Standart Sapma Hesaplama: " << "\n";
 	         cout << setw(2) << "X" << setw(8) << "P(x)" << setw(10) << "\t x * p(x)" << setw(18) << "(x)^2 * p(x) " << "\n";
 	         
 	         for(int i =0; i< size; i++){
 				 cout << setw(2) << x[i] << setw(8) << p[i]  << setw(10) << x[i] * p[i] << setw(15) << SQ(x[i]) * p[i] << "\n" ;
-				 m += x[i] * p[i];                              // x.p(x) toplamı 
+				 m += x[i] * p[i];                              // x.p(x) toplamı (ortalama)
 				 sum_sqx_p += SQ(x[i]) * p[i];   // x^2 . p(x)  toplamı 
 				 sum_p += p[i];                              // olasılık değereleri toplaması p(x) = 1 olması
 				  
