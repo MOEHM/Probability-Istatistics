@@ -10,26 +10,28 @@ void frekans_hesaplama(double frekans[], int size)
 {
 /* Göreli Sıklık (Frekans Hesaplama) */
 
-cout << "Frekans  Göreli Sıklık ve kümülitif Hesaplama:\n";
-int frekans_sum = 0;
-int c_sum  = 0;
+cout << "\nFrekans  Göreli Sıklık ve kümülitif Hesaplama:\n";
+double frekans_sum = 0;
+double c_sum  = 0;
 double goreli;
-double cumulativ_frekans;
+double cumulativ_frekans = 0;
 
   for (int i=0 ; i< size; i++)
   {
     frekans_sum += frekans[i];
   }
   cout << "frekanslar toplaması: " << frekans_sum << "\n\n";
+  cout << " Göreli sıklık " << setw(8) <<  " Kümülitif Frekans" << "\n";
   for (int i=0; i< size; i++)
   {
     goreli = frekans[i] / frekans_sum;
     //cout << "Göreli Sıklık(Frekans): " << goreli << "\n";
-    printf("Göreli Sıklık: %.4f\n", goreli); // Print just for numbers after , 
+    printf(" %.4f", goreli); // Print just for numbers after comma
     cumulativ_frekans += frekans[i];
-    cout << "Cumlative Frekans: " << cumulativ_frekans << "\n";
+    cout << setw(16) << cumulativ_frekans << "\n";
     c_sum += cumulativ_frekans;
   }
+  
   cout << "\n" << "Cumulitive Toplama:" << c_sum << "\n";
 
 } 
@@ -70,9 +72,9 @@ void standart_sapma(double array[], int size){
 	}
 	ortalama = arry_sum / size;
 	cout << "Ortalama: " << ortalama << "\n";
-	cout << "x-x~" << "\t" << "SQ(x-x~)" << "\n"; 
+	cout << "x-x~" << "\t" << "(x-x~)^2" << "\n"; 
 	for(int i = 0; i < size;i++){
-		cout << setw(2)<< array[i] - ortalama <<  "\t" << SQ(array[i] - ortalama) << "\n";
+		cout << setw(2)<< array[i] - ortalama <<  "\t " << SQ(array[i] - ortalama) << "\n";
 		sum2 += SQ(array[i] - ortalama);
 	}
 	cout << "------------\n" << "\t" << sum2 << "\n";
@@ -96,9 +98,9 @@ void frekans_standart_sapma(double array[], double frekans[], int size){
 	ortalama = sum1 / sumF;
 	cout << "Ortalama: " << ortalama << "\n";
 	
-	cout << "x-x~" << "\t" << "SQ(x-x~)" << setw(12) << "SQ(x-x~)*F" << "\n"; 
+	cout << "x-x~" << "\t" << "(x-x~)^2 " << setw(12) << " (x-x~)^2 * F" << "\n"; 
 	for(int i = 0; i<size; i++){
-		cout << setw(1) << array[i] - ortalama <<  "\t" << SQ(array[i] - ortalama) << setw(12) << SQ(array[i] - ortalama)*frekans[i] << "\n";
+		cout << setw(1) << array[i] - ortalama <<  "\t " << SQ(array[i] - ortalama) << setw(12) << SQ(array[i] - ortalama)*frekans[i] << "\n";
 		sum2 += SQ(array[i] - ortalama)*frekans[i];
 	}
 	printf("---------------------------\n");
@@ -109,24 +111,29 @@ void frekans_standart_sapma(double array[], double frekans[], int size){
 }
 
 void olasilk_frekans_standart_sapma(double x[], double p[], int size){
-	         double sum_x_p = 0;
-	         double sum_p = 0;
-	         double sum_sqx_p = 0;
-	         double varyans = 0;
+	          // adımlar 
+	          // 1. beklenen değer (ortalama) m = " x.p(x) " toplamı
+	          // 2. " x^2 . p(x) " toplamı 
+	          // 3. standart sapma hesaplama formulu " sqrt( x^2 . p(x) - (m^2) "
+	          
+	         double m = 0;                    // ortalama beklene değer 1.adım
+	         double sum_p = 0;           // olasılık p(x) değerleri toplama    
+	         double sum_sqx_p = 0;  // x^2 . p(x)                         2.adım
+	         double varyans = 0;        // standart sapma               3. adım
 	         
 	         cout << "\nOlasılık için Standart Sapma Hesaplama: " << "\n";
-	         cout << setw(2) << "X" << setw(8) << "P(x)" << setw(10) << "\t x * p(x)" << setw(18) << "SQ(x) * p(x) " << "\n";
+	         cout << setw(2) << "X" << setw(8) << "P(x)" << setw(10) << "\t x * p(x)" << setw(18) << "(x)^2 * p(x) " << "\n";
 	         
 	         for(int i =0; i< size; i++){
 				 cout << setw(2) << x[i] << setw(8) << p[i]  << setw(10) << x[i] * p[i] << setw(15) << SQ(x[i]) * p[i] << "\n" ;
-				 sum_x_p += x[i] * p[i];
-				 sum_sqx_p += SQ(x[i]) * p[i];
-				 sum_p += p[i];
-				 
+				 m += x[i] * p[i];                              // x.p(x) toplamı 
+				 sum_sqx_p += SQ(x[i]) * p[i];   // x^2 . p(x)  toplamı 
+				 sum_p += p[i];                              // olasılık değereleri toplaması p(x) = 1 olması
+				  
 				 }
 				 cout << "\n---------------------------------------------------------------" << "\n" ;
-				 cout << setw(8) << sum_p << setw(12) << sum_x_p << setw(15) << sum_sqx_p << "\n" ;
-				 varyans = sqrt(sum_sqx_p - SQ(sum_x_p));
+				 cout << setw(8) << sum_p << setw(12) << m << setw(15) << sum_sqx_p << "\n" ;
+				 varyans = sqrt(sum_sqx_p - SQ(m));
 				 printf("Varyans = %.4f\n", varyans);
 	
 	}
@@ -141,6 +148,7 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 	    double combination; //(n,x)
 	    double binom_daglimi;
 	    
+	    cout << "\nBinom dağılımı Hesaplama: \n";
 		FAC(i,n,1){
 			s1 *= i;
 			}
@@ -154,7 +162,7 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 		combination = s1 / a;
 		cout << "Kombinasyon: " << combination << "\n";
 		binom_daglimi = combination * pow(p,x)  *  pow(q,n-x); 
-		cout << binom_daglimi << "\n\n";
+		cout << "Binom dağılımı: "<< binom_daglimi << "\n\n";
 		 
 		} 
 	
@@ -171,7 +179,7 @@ int main(){
   frekans_hesaplama(array_numbers, size);
   
   // Medyan Hesaplama
- // medyan_hesaplama();
+  medyan_hesaplama();
  
  // Standart sapma Hesaplama 
  // Varyans
@@ -181,6 +189,7 @@ int main(){
   frekans_standart_sapma(array_numbers,frekans,size);
   
   // Olasılık için Varyans Hesaplama
+  // kesikli rassal değişkeni
   olasilk_frekans_standart_sapma(array_numbers,frekans, size);
   
   // Binom Dağılımı 
