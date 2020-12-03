@@ -37,7 +37,6 @@ double cumulativ_frekans = 0;
 } 
 
 void medyan_hesaplama(){
-
   float array[] = {1,2,3,4,5,6,7,8,9,10};
   int size = sizeof(array) / sizeof(array[0]);
   cout << "\n"<<  "Medyan Hesaplama: " << "\n\n";
@@ -148,7 +147,7 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 	    double combination; //(n,x)
 	    double binom_daglimi;
 	    
-	    cout << "\nBinom dağılımı Hesaplama: \n";
+	    cout << "\nBinom dağılımı ile olasılık Hesaplama: \n";
 		FAC(i,n,1){
 			s1 *= i;
 			}
@@ -162,21 +161,34 @@ void olasilk_frekans_standart_sapma(double x[], double p[], int size){
 		combination = s1 / a;
 		cout << "Kombinasyon: " << combination << "\n";
 		binom_daglimi = combination * pow(p,x)  *  pow(q,n-x); 
-		cout << "Binom dağılımı: "<< binom_daglimi << "\n\n";
+		printf("Binom Dağılımı ile olasılık: %.4f \n\n", binom_daglimi);
 		 
 		} 
 	
 
 int main(){
-  double array_numbers[] ={0,1,2,3,4,5};
-  double frekans[] = {0.02,0.20,0.30,0.30,0.10,0.08};
-  int size = sizeof(array_numbers) / sizeof(array_numbers[0]);
+ // double array_numbers[] ={4.5,1.2, -2.3};
+  //double frekans[] = {0.32, 0.51, 0.17};
+  int size ;// sizeof(array_numbers) / sizeof(array_numbers[0]);
   
+  cout << "Enter Size: ";
+  cin  >> size;
+  double array_numbers[size];
+  double frekans[size];
   
-    // cout << sizeof(balance) / sizeof(balance[0]) << endl;
+  for (int i= 0; i < size; i++){
+	  cout << "Enter Array Element "<< i << ": " ;
+	  cin >> array_numbers[i];
+	  }
+	
+  for(int i=0; i< size; i++){
+	  cout << "Enter Frekans Element "<< i << ": ";
+	  cin  >> frekans[i];
+	  }
+  
 
   // Göreli Sıklık Hesaplama ve kümülitif 
-  frekans_hesaplama(array_numbers, size);
+  frekans_hesaplama(frekans, size);
   
   // Medyan Hesaplama
   medyan_hesaplama();
@@ -195,8 +207,7 @@ int main(){
   // Binom Dağılımı 
   // n= deney sayısı, x= başarılı sonuç sayısı, p= başarılı sonuç OLASILIĞI, q= başarısız sonuç OLASILIĞI 1-p 
   // formul: (n,x) * p^x * q^n-x
-  
-  binom(7,3,0.15,1-0.15);  // binom(n,x,p,q) 
+  binom(6, 1, 0.20, 1 - 0.20);  // binom(n,x,p,q) 
 
   return 0;
 }
