@@ -5,7 +5,7 @@ using namespace std;
 
 
 void binom_olasilik(double n, double x, double p, double q){
-	// n= deney sayısı, x= başarılı sonuç sayısı, p= başarılı sonuç OLASILIĞI, q= başarısız sonuç OLASILIĞI 1-p 
+		// n= deney sayısı, x= başarılı sonuç sayısı, p= başarılı sonuç OLASILIĞI, q= başarısız sonuç OLASILIĞI 1-p 
 	    int i;
 	    double s1 = 1;   // n!
 	    double s2 = 1;  // x!
@@ -13,8 +13,7 @@ void binom_olasilik(double n, double x, double p, double q){
 	    double a;          // (n-x)! * x!
 	    double combination; //(n,x)
 	    double binom_daglimi;
-	    
-	    cout << "\nBinom dağılımı ile olasılık Hesaplama: \n";
+
 		FAC(i,n,1){
 			s1 *= i;
 			}
@@ -26,9 +25,12 @@ void binom_olasilik(double n, double x, double p, double q){
 			}
 		a = s2 * s3;
 		combination = s1 / a;
-		cout << "Kombinasyon: " << combination << "\n";
+		// cout << "Kombinasyon: " << combination << "\n";
 		binom_daglimi = combination * pow(p,x)  *  pow(q,n-x); 
-		printf("Binom Dağılımı ile olasılık: %.4f \n\n", binom_daglimi);
+		cout << "P(x=" << x << ")" << " = ";  
+		printf("%.4f \n", binom_daglimi);
+
+		// printf("Binom Dağılımı ile olasılık: %.4f \n\n", binom_daglimi);
 	}
 	
 	
@@ -40,14 +42,19 @@ int main()
 	double p;
 	double q = 1 - p;
 	
-	cout << "deney sayısı:  ";
+	cout << "deney sayısı `n`:  ";
 	cin >> n;
-	cout << "başarılı sonuç elde etme olasılığı: ";
+	cout << "başarılı sonuç elde etme olasılığı `p`: ";
 	cin >> p;
-	cout << "başarılı sonuç sayısı: ";
+	cout << "başarılı sonuç sayısı `x`: ";
 	cin >> x;
 	
-	binom_olasilik(n,x,p,1 - p);
+	cout << "Binom Dağılımı ile Olasılık Hesaplama: " << "\n\n";
+	for (size_t i = 0; i <= x; i++)
+	{
+			binom_olasilik(n,i,p,1 - p);
+	}
+	
 	
 	return 0;
 }
